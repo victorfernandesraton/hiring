@@ -23,7 +23,6 @@ class StockService {
       );
       return parseServiceLasStockAxiosResponse({ stockName, result });
     } catch (error) {
-      console.log(error);
       throw new Error("unavaliable API");
     }
   }

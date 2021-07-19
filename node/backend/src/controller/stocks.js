@@ -5,8 +5,8 @@ export const handler = (req, res, next) => {
 };
 
 const stockServiceInstance = new StockService({
-  key: "WCQ9J13R7X5K46V5",
-  uri: "https://www.alphavantage.co/",
+  key: process.env.ALPHA_VANTAGE_API_KEY,
+  uri: process.env.AlPHA_VANTAGE_API_URI,
 });
 
 export const getLastQuota = async ({ params }) => {
