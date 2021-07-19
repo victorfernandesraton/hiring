@@ -1,3 +1,3 @@
-const app = require("./src/app/");
+import app, { start } from "./src/app/index.js";
 
-app.start(3000);
+start(3000);

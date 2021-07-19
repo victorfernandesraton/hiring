@@ -1,12 +1,10 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-
-const routers = require("../routes/");
-
+import express from "express";
+import routes from "../routes/index.js";
+import bodyParser from "body-parser";
 const app = express();
 
 app.use(bodyParser.json());
-app.use(routers);
+app.use(routes);
 app.use(function (err, req, res, next) {
   console.error(err.stack);
   return res.status(500).json({
@@ -15,7 +13,4 @@ app.use(function (err, req, res, next) {
 });
 const start = (port) => app.listen(port);
 
-module.exports = {
-  ...app,
-  start: (port) => start(port),
-};
+export { app as default, start };
