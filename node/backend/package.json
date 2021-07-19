@@ -1,0 +1,22 @@
+{
+  "name": "hiring-aliveapp-backend",
+  "version": "1.0.0",
+  "description": "backend for stock lists",
+  "main": "index.js",
+  "scripts": {
+    "serve": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Victor raton",
+    "email": "vfbraton@gmail.com",
+    "url": "http://github.com/victorfernandesraton"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
+}
