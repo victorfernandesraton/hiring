@@ -1,8 +1,9 @@
 import axios from "axios";
+import StockService from "../stock/index.js";
 import { parseServiceLasStockAxiosResponse } from "../../adapter/stock.js";
-class StockService {
+class StockServiceExternal extends StockService {
   constructor({ key, uri }) {
-    this.key = key;
+    super({ key, uri });
     const requestInstance = axios.create({
       baseURL: uri,
     });
@@ -28,4 +29,4 @@ class StockService {
   }
 }
 
-export default StockService;
+export default StockServiceExternal;

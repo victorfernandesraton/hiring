@@ -1,4 +1,4 @@
-export const parseServiceLasStockAxiosResponse = ({ stockName, result }) => {
+export const parseLastStockResponse = ({ stockName, result }) => {
   const price = result?.data?.["Global Quote"]?.["05. price"];
   const date = result?.data?.["Global Quote"]?.["07. latest trading day"];
 
