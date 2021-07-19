@@ -12,5 +12,20 @@ describe("Stock adapters", () => {
       expect(result).toHaveProperty("lastPrice", 2.78);
       expect(result).toHaveProperty("priceAt", "2021-07-16T00:00:00.000Z");
     });
+    test("should be not recived price numeric", () => {
+      expect(
+        parseLastStockResponse({
+          stockName: "IBM",
+          result: {
+            data: {
+              "Global Quote": {
+                ...succes["Global Quote"],
+                "05. price": null,
+              },
+            },
+          },
+        })
+      ).toHaveProperty("lastPrice", 0);
+    });
   });
 });

@@ -1,6 +1,6 @@
 import axios from "axios";
 import StockService from "../stock/index.js";
-import { parseServiceLasStockAxiosResponse } from "../../adapter/stock.js";
+import { parseLastStockResponse } from "../../adapter/stock.js";
 class StockServiceExternal extends StockService {
   constructor({ key, uri }) {
     super({ key, uri });
@@ -22,7 +22,7 @@ class StockServiceExternal extends StockService {
       const result = await this.request.get(
         `query?function=GLOBAL_QUOTE&symbol=${stockName}`
       );
-      return parseServiceLasStockAxiosResponse({ stockName, result });
+      return parseLastStockResponse({ stockName, result });
     } catch (error) {
       throw new Error("unavaliable API");
     }
