@@ -3,6 +3,7 @@ class StockService {
     this.key = key;
     this.uri = uri;
   }
+
   async getLastQuota(stockName) {
     throw new Error("not implemented Yet");
   }

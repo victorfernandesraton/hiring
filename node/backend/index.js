@@ -1,3 +1,3 @@
-import { start } from "./src/app/index.js";
+import app from "./src/app/index.js";
 
-start(3000);
+app.listen(3000);

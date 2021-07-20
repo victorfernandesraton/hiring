@@ -31,8 +31,10 @@ class StockServiceExternal extends StockService {
     } catch (error) {
       if (error instanceof ApplicationError) {
         throw error;
+      } else {
+        console.log(error);
+        throw new ApplicationError("internal error");
       }
-      throw new ApplicationError("internal error");
     }
   }
 }
