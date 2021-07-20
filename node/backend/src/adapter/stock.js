@@ -8,3 +8,16 @@ export const parseLastStockResponse = ({ stockName, result }) => {
     priceAt: new Date(date).toISOString(),
   };
 };
+
+export const parseHistoricalStockResponse = ({ stockName, result = [] }) => ({
+  name: stockName,
+  prices: result.length
+    ? result?.map?.((price) => ({
+        opening: price?.open ?? 0,
+        low: price?.low,
+        high: price?.high ?? 0,
+        closing: price?.close ?? 0,
+        pricedAt: price?.date,
+      }))
+    : [],
+});

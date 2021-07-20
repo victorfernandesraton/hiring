@@ -7,6 +7,10 @@ class StockService {
   async getLastQuota(stockName) {
     throw new Error("not implemented Yet");
   }
+
+  async getHistoryQuote(stockName, from, to) {
+    throw new Error("not implemented Yet");
+  }
 }
 
 export default StockService;
