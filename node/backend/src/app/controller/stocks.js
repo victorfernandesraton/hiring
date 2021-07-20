@@ -1,5 +1,4 @@
-import expresAdapter from "../adapter/express.js";
-import StockServiceExternal from "../services/stock-external/index.js";
+import StockServiceExternal from "../../services/stock-external/index.js";
 export const handler = (req, res, next) => {
   return next(new Error("not implemented"));
 };

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { handler, getLastQuota } from "../controller/stocks.js";
-import ExpressAdapter from "../adapter/express.js";
+import ExpressAdapter from "../../adapter/express.js";
 const router = Router();
 
 router.get("/:stock_name/quote", ExpressAdapter(getLastQuota));

@@ -5,3 +5,11 @@ export default function (fn) {
     res.json(obj);
   };
 }
+
+export class ApplicationError extends Error {
+  constructor(message, status) {
+    super(message);
+    this.status = status ?? 500;
+    this.name = "ApplicationError";
+  }
+}

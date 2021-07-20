@@ -1,6 +1,7 @@
 import axios from "axios";
 import StockService from "../stock/index.js";
 import { parseLastStockResponse } from "../../adapter/stock.js";
+import { ApplicationError } from "../../adapter/express.js";
 class StockServiceExternal extends StockService {
   constructor({ key, uri }) {
     super({ key, uri });
@@ -22,9 +23,16 @@ class StockServiceExternal extends StockService {
       const result = await this.request.get(
         `query?function=GLOBAL_QUOTE&symbol=${stockName}`
       );
-      return parseLastStockResponse({ stockName, result });
+      if (!result?.data?.["Global Quote"]?.["05. price"]) {
+        throw new ApplicationError("stock not found", 404);
+      } else {
+        return parseLastStockResponse({ stockName, result });
+      }
     } catch (error) {
-      throw new Error("unavaliable API");
+      if (error instanceof ApplicationError) {
+        throw error;
+      }
+      throw new ApplicationError("internal error");
     }
   }
 }
