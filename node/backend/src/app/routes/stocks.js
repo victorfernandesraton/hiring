@@ -1,10 +1,15 @@
 import { Router } from "express";
-import { handler, getLastQuota } from "../controller/stocks.js";
 import ExpressAdapter from "../../adapter/express.js";
+
+import * as stockContoller from "../controller/stocks.js";
+
 const router = Router();
 
-router.get("/:stock_name/quote", ExpressAdapter(getLastQuota));
-router.get("/:stock_name/history", handler);
-router.get("/:stock_name/compare", handler);
+router.get("/:stock_name/quote", ExpressAdapter(stockContoller.getLastQuota));
+router.get(
+  "/:stock_name/history",
+  ExpressAdapter(stockContoller.geHistoricalQuota)
+);
+router.get("/:stock_name/compare", stockContoller.handler);
 
 export default router;

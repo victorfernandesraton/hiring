@@ -1,7 +1,8 @@
 import axios from "axios";
 import StockService from "../stock/index.js";
 import { parseLastStockResponse } from "../../adapter/stock.js";
-import { ApplicationError } from "../../adapter/express.js";
+import { ApplicationError } from "../../adapter/error.js";
+
 class StockServiceExternal extends StockService {
   constructor({ key, uri }) {
     super({ key, uri });
@@ -32,7 +33,6 @@ class StockServiceExternal extends StockService {
       if (error instanceof ApplicationError) {
         throw error;
       } else {
-        console.log(error);
         throw new ApplicationError("internal error");
       }
     }
