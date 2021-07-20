@@ -1,5 +1,4 @@
 import express from "express";
-import request from "supertest";
 
 import bodyParser from "body-parser";
 import _ from "express-async-errors";
@@ -26,15 +25,5 @@ app.use(function (err, req, res, next) {
     message: err?.message,
   });
 });
-
-request(app)
-  .get("/user")
-  .expect("Content-Type", /json/)
-  .expect("Content-Length", "15")
-  .expect(200)
-  .end(function (err, res) {
-    console.log(err, res);
-    if (err) throw err;
-  });
 
 export default app;
