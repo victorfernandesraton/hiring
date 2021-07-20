@@ -1,23 +1,11 @@
-import axios from "axios";
-import StockService from "../stock/index.js";
+import StockService from "./stockService.js";
 import { parseLastStockResponse } from "../../adapter/stock.js";
 import { ApplicationError } from "../../adapter/error.js";
 
-class StockServiceExternal extends StockService {
-  constructor({ key, uri }) {
+class StockServiceLastQuota extends StockService {
+  constructor({ key, uri, request }) {
     super({ key, uri });
-    const requestInstance = axios.create({
-      baseURL: uri,
-    });
-    requestInstance.interceptors.request.use((config) => {
-      config.params = {
-        apikey: this.key,
-        ...config.params,
-      };
-
-      return config;
-    });
-    this.request = requestInstance;
+    this.request = request;
   }
   async getLastQuota(stockName) {
     try {
@@ -39,4 +27,4 @@ class StockServiceExternal extends StockService {
   }
 }
 
-export default StockServiceExternal;
+export default StockServiceLastQuota;

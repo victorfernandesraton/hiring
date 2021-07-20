@@ -1,20 +1,11 @@
-import axios from "axios";
-import StockService from "./index.js";
+import StockService from "./stockService.js";
 import { ApplicationError } from "../../adapter/error.js";
 import { parseHistoricalStockResponse } from "../../adapter/stock.js";
 
 class StockServiceHistoryQuote extends StockService {
-  constructor({ key, uri }) {
+  constructor({ key, uri, request }) {
     super({ key, uri });
-    const requestInstance = axios.create({
-      baseURL: this.uri,
-    });
-    requestInstance.interceptors.request.use((config) => ({
-      ...config,
-      params: { ...config.params, token: this.key },
-    }));
-
-    this.request = requestInstance;
+    this.request = request;
   }
 
   async getHistoryQuote({ stockName, from, to }) {
