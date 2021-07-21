@@ -10,11 +10,10 @@ describe("getCompareQuota", () => {
         stocks: ["TSCDF"],
       });
     expect(result.status).toBe(200);
-    expect(result.body.prices).toContainEqual({
-      name: "TSCDF",
-      lastPrice: 2.99,
-      priceAt: "2021-07-20T00:00:00.000Z",
-    });
+    expect(result.body.prices).toHaveLength(2);
+    expect(result.body?.prices?.[0]).toHaveProperty("name");
+    expect(result.body?.prices?.[0].lastPrice).not.toBe(0);
+    expect(result.body?.prices?.[0]).toHaveProperty("priceAt");
     return;
   });
   test("should be a valid comparation list and not repeat request", async () => {
@@ -27,11 +26,9 @@ describe("getCompareQuota", () => {
 
     expect(result.status).toBe(200);
     expect(result.body.prices).toHaveLength(2);
-    expect(result.body.prices).toContainEqual({
-      name: "TSCDF",
-      lastPrice: 2.99,
-      priceAt: "2021-07-20T00:00:00.000Z",
-    });
+    expect(result.body?.prices?.[0]).toHaveProperty("name");
+    expect(result.body?.prices?.[0].lastPrice).not.toBe(0);
+    expect(result.body?.prices?.[0]).toHaveProperty("priceAt");
     return;
   });
 });

@@ -24,7 +24,7 @@ class StockServiceCompareQuota extends StockService {
     );
     const results = await Promise.all(promisses);
 
-    return parseCompareStockResponse(results);
+    return parseCompareStockResponse(results.filter((item) => item != null));
   }
 }
 export default StockServiceCompareQuota;
