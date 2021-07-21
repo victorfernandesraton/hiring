@@ -24,12 +24,12 @@ const stockServiceInstance = new StockServiceLastQuote({
 });
 
 const stockServiceHistoryQuote = new StockServiceHistoryQuote({
-  key: process.env.TIINGO_API_KEY,
-  uri: process.env.TIINGO_API_URI,
+  key: process.env.ALPHA_VANTAGE_API_KEY,
+  uri: process.env.AlPHA_VANTAGE_API_URI,
   request: RequestAdapter("axios", {
-    baseURL: process.env.TIINGO_API_URI,
+    baseURL: process.env.AlPHA_VANTAGE_API_URI,
     params: {
-      token: process.env.TIINGO_API_KEY,
+      apikey: process.env.ALPHA_VANTAGE_API_KEY,
     },
   }),
 });
