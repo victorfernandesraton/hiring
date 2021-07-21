@@ -10,6 +10,9 @@ router.get(
   "/:stock_name/history",
   ExpressAdapter(stockContoller.geHistoricalQuota)
 );
-router.get("/:stock_name/compare", stockContoller.handler);
+router.post(
+  "/:stock_name/compare",
+  ExpressAdapter(stockContoller.getCompareStocks)
+);
 
 export default router;
