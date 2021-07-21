@@ -1,69 +1,46 @@
-import RequestAdapter from "../../adapter/request.js";
+export default class StockController {
+  constructor({
+    stockServiceInstance,
+    stockServiceHistoryQuote,
+    stockServiceCompareQuota,
+  }) {
+    this.stockServiceCompareQuota = stockServiceCompareQuota;
+    this.stockServiceHistoryQuote = stockServiceHistoryQuote;
+    this.stockServiceInstance = stockServiceInstance;
+  }
+  getLastQuota = async ({ params }) => {
+    try {
+      const result = await this.stockServiceInstance.getLastQuota(
+        params.stock_name
+      );
 
-import StockServiceLastQuote from "../../services/stock/getLastQuota.js";
-import StockServiceHistoryQuote from "../../services/stock/getHistoryQuote.js";
-import StockServiceCompareQuota from "../../services/stock/getCompareStocks.js";
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  };
 
-export const handler = (req, res, next) => {
-  return next(new Error("not implemented"));
-};
+  geHistoricalQuota = async ({ params, query }) => {
+    const { stock_name } = params;
+    const { to, from } = query;
 
-const stockServiceInstance = new StockServiceLastQuote({
-  key: process.env.ALPHA_VANTAGE_API_KEY,
-  uri: process.env.AlPHA_VANTAGE_API_URI,
-  request: RequestAdapter("axios", {
-    baseURL: process.env.AlPHA_VANTAGE_API_URI,
-    params: {
-      apikey: process.env.ALPHA_VANTAGE_API_KEY,
-    },
-  }),
-});
-
-const stockServiceHistoryQuote = new StockServiceHistoryQuote({
-  key: process.env.TIINGO_API_KEY,
-  uri: process.env.TIINGO_API_URI,
-  request: RequestAdapter("axios", {
-    baseURL: process.env.TIINGO_API_URI,
-    params: {
-      token: process.env.TIINGO_API_KEY,
-    },
-  }),
-});
-const stockServiceCompareQuota = new StockServiceCompareQuota({
-  key: process.env.ALPHA_VANTAGE_API_KEY,
-  uri: process.env.AlPHA_VANTAGE_API_URI,
-  request: stockServiceInstance,
-});
-export const getLastQuota = async ({ params }) => {
-  try {
-    const result = await stockServiceInstance.getLastQuota(params.stock_name);
+    const result = await this.stockServiceHistoryQuote.getHistoryQuote({
+      stockName: stock_name,
+      from,
+      to,
+    });
 
     return result;
-  } catch (error) {
-    throw error;
-  }
-};
+  };
 
-export const geHistoricalQuota = async ({ params, query }) => {
-  const { stock_name } = params;
-  const { to, from } = query;
+  getCompareStocks = async ({ params, body }) => {
+    const { stock_name } = params;
+    const { stocks } = body;
 
-  const result = await stockServiceHistoryQuote.getHistoryQuote({
-    stockName: stock_name,
-    from,
-    to,
-  });
+    const result = await this.stockServiceCompareQuota.getCompareStocks({
+      stockList: Array.from(new Set([...stocks, stock_name])),
+    });
 
-  return result;
-};
-
-export const getCompareStocks = async ({ params, body }) => {
-  const { stock_name } = params;
-  const { stocks } = body;
-
-  const result = await stockServiceCompareQuota.getCompareStocks({
-    stockList: Array.from(new Set([...stocks, stock_name])),
-  });
-
-  return result;
-};
+    return result;
+  };
+}
