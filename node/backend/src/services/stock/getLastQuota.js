@@ -12,8 +12,9 @@ class StockServiceLastQuota extends StockService {
       const result = await this.request.get(
         `query?function=GLOBAL_QUOTE&symbol=${stockName}`
       );
+
       if (!result?.data?.["Global Quote"]?.["05. price"]) {
-        throw new ApplicationError("stock not found", 404);
+        throw new ApplicationError(`stock ${stockName} not found`, 404);
       } else {
         return parseLastStockResponse({ stockName, result });
       }

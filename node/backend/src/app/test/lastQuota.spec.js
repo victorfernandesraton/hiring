@@ -12,7 +12,7 @@ describe("LastQuota", () => {
   test("shoud be not found stock", async () => {
     const response = await supertest(app).get("/stocks/nfdn/quote");
     expect(response.status).toBe(404);
-    expect(response.body).toHaveProperty("message", "stock not found");
+    expect(response.body).toHaveProperty("message", "stock nfdn not found");
     return;
   });
 });
