@@ -31,19 +31,22 @@ describe("Stock adapters", () => {
   });
 
   describe("parseHistoricalStockResponse", () => {
-    test("shoud be response tock history", () => {
+    test("shoud be response stock history", () => {
       const data = parseHistoricalStockResponse({
         stockName: "IBM",
-        result: historicalData.sucess,
+        result: historicalData.sucess["Time Series (Daily)"],
+        finalDate: "2021-07-22",
+        initialDate: "2021-07-15",
       });
+
       expect(data).toHaveProperty("name", "IBM");
       expect(data).toHaveProperty("prices");
       expect(data.prices).toContainEqual({
-        opening: 95.75,
-        low: 94.37,
-        high: 96.69,
-        closing: 95.66,
-        pricedAt: "2021-06-01T00:00:00.000Z",
+        opening: 141.0,
+        low: 138.59,
+        high: 141.0,
+        closing: 138.9,
+        pricedAt: "2021-07-16",
       });
     });
     test("shoud be not stock history", () => {
