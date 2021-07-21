@@ -10,7 +10,7 @@ class StockServiceLastQuota extends StockService {
   async getLastQuota(stockName) {
     try {
       const result = await this.request.get(
-        `query?function=GLOBAL_QUOTE&symbol=${stockName}`
+        `/query?function=GLOBAL_QUOTE&symbol=${stockName}`
       );
 
       if (!result?.data?.["Global Quote"]?.["05. price"]) {
