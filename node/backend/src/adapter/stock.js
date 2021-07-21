@@ -21,3 +21,7 @@ export const parseHistoricalStockResponse = ({ stockName, result = [] }) => ({
       }))
     : [],
 });
+
+export const parseCompareStockResponse = (stocks = []) => ({
+  prices: stocks,
+});
