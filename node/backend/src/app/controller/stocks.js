@@ -32,12 +32,6 @@ const stockServiceHistoryQuote = new StockServiceHistoryQuote({
 const stockServiceCompareQuota = new StockServiceCompareQuota({
   key: process.env.ALPHA_VANTAGE_API_KEY,
   uri: process.env.AlPHA_VANTAGE_API_URI,
-  // request: RequestAdapter("axios", {
-  //   baseURL: process.env.AlPHA_VANTAGE_API_URI,
-  //   params: {
-  //     apikey: process.env.ALPHA_VANTAGE_API_KEY,
-  //   },
-  // }),
   request: stockServiceInstance,
 });
 export const getLastQuota = async ({ params }) => {
