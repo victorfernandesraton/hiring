@@ -10,3 +10,21 @@ export const verifyDateInInterval = ({ target, initialDate, finalDate }) => {
 
   return targetValue >= initialdateValue && targetValue <= finalDateValue;
 };
+
+export const gerProximityDate = ({ target, dates = [] }) => {
+  return dates.reduce((acc = 0, curr, index, arr) => {
+    const currValue = Math.round(curr.getTime() / 100);
+    const date = new Date(target);
+    const currentDiff = Math.abs(currValue - Math.round(date.getTime() / 100));
+    if (acc == 0 || acc.diff > currentDiff) {
+      acc = {
+        index,
+        value: currValue,
+        diff: currentDiff,
+        date: curr,
+      };
+    }
+
+    return acc;
+  }, 0).index;
+};

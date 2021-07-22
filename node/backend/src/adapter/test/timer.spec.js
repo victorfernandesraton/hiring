@@ -1,4 +1,4 @@
-import { verifyDateInInterval } from "../timer.js";
+import { verifyDateInInterval, gerProximityDate } from "../timer.js";
 
 describe("verifyDateInInterval", () => {
   test("should be a date in interval", () => {
@@ -27,5 +27,32 @@ describe("verifyDateInInterval", () => {
         target: "2021-08-21",
       })
     ).toBe(false);
+  });
+
+  describe("gerProximityDate", () => {
+    test("shoud be proximity date", () => {
+      expect(
+        gerProximityDate({
+          target: "2020-02-01",
+          dates: [
+            new Date(2021, 1, 1),
+            new Date(Date.now()),
+            new Date(2020, 11, 25),
+          ],
+        })
+      ).toBe(2);
+    });
+    test("shoud be date in is on array", () => {
+      expect(
+        gerProximityDate({
+          target: "2020-02-01",
+          dates: [
+            new Date(2020, 2, 1),
+            new Date(2021, 1, 1),
+            new Date(Date.now()),
+          ],
+        })
+      ).toBe(0);
+    });
   });
 });
