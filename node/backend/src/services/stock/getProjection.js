@@ -1,3 +1,4 @@
+import { ApplicationError } from "../../adapter/error.js";
 import { parseProjectionFromDay } from "../../adapter/stock.js";
 
 import StockService from "./stockService.js";
@@ -24,7 +25,7 @@ class StockServiceProjection extends StockService {
       const historicalPrices = responseHistory?.data?.["Time Series (Daily)"];
 
       if (!historicalPrices) {
-        throw new ApplicationError("stock not found", 404);
+        throw new ApplicationError("stock history not found", 404);
       }
 
       const projectionForDay = parseProjectionFromDay({
