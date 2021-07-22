@@ -9,6 +9,7 @@ import StockServiceCompareQuota from "../../services/stock/getCompareStocks.js";
 
 import StockContoller from "../controller/stocks.js";
 import { stcokRoutesConstants } from "./constants.js";
+import StockServiceProjection from "../../services/stock/getProjection.js";
 
 const router = Router();
 
@@ -38,6 +39,21 @@ const stockServiceCompareQuota = new StockServiceCompareQuota({
   uri: process.env.AlPHA_VANTAGE_API_URI,
   request: stockServiceInstance,
 });
+
+const stockServiceProjection = new StockServiceProjection({
+  key: process.env.ALPHA_VANTAGE_API_KEY,
+  uri: process.env.AlPHA_VANTAGE_API_URI,
+  request: {
+    get: RequestAdapter("axios", {
+      baseURL: process.env.AlPHA_VANTAGE_API_URI,
+      params: {
+        apikey: process.env.ALPHA_VANTAGE_API_KEY,
+      },
+    }).get,
+
+    getLastQuota: stockServiceInstance,
+  },
+});
 const stockContoller = new StockContoller({
   stockServiceCompareQuota,
   stockServiceHistoryQuote,
@@ -57,6 +73,10 @@ router.get(
 router.post(
   stcokRoutesConstants.compare,
   ExpressAdapter(stockContoller.getCompareStocks)
+);
+router.post(
+  stcokRoutesConstants.projection,
+  ExpressAdapter(stockContoller.getProjection)
 );
 
 export default router;
