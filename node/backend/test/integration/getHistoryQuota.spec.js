@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import app from "../index.js";
+import app from "../../src/app/index.js";
 
 describe("GET /stocks/:stock_name/history", () => {
   test("shuld be return valid historyQUota", async () => {
