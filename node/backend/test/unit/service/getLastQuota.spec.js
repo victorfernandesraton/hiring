@@ -1,5 +1,5 @@
-import StockServiceLastQuota from "../getLastQuota.js";
-import lastQuotaMock from "../../../mock/getLastQuota.json";
+import StockServiceLastQuota from "../../../src/services/stock/getLastQuota.js";
+import lastQuotaMock from "../../../src/mock/getLastQuota.json";
 describe("StockServiceLastQuota", () => {
   test("shoud be a valid last quota", async () => {
     const service = new StockServiceLastQuota({

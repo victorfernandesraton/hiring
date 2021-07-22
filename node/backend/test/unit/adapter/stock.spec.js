@@ -2,9 +2,9 @@ import {
   parseLastStockResponse,
   parseHistoricalStockResponse,
   parseProjectionFromDay,
-} from "../stock.js";
-import { succes } from "../../mock/getLastQuota.json";
-import historicalData from "../../mock/gethistoricalQuota.json";
+} from "../../../src/adapter/stock.js";
+import { succes } from "../../../src/mock/getLastQuota.json";
+import historicalData from "../../../src/mock/gethistoricalQuota.json";
 describe("Stock adapters", () => {
   describe("parseLastStockResponse", () => {
     test("should be response stock value", () => {

@@ -1,4 +1,7 @@
-import { verifyDateInInterval, gerProximityDate } from "../timer.js";
+import {
+  verifyDateInInterval,
+  gerProximityDate,
+} from "../../../src/adapter/timer.js";
 
 describe("verifyDateInInterval", () => {
   test("should be a date in interval", () => {

@@ -1,8 +1,8 @@
-import StockServiceProjection from "../getProjection.js";
-import StockServiceLastQuota from "../getLastQuota.js";
+import StockServiceProjection from "../../../src/services/stock/getProjection.js";
+import StockServiceLastQuota from "../../../src/services/stock/getLastQuota.js";
 
-import HistoryMock from "../../../mock/gethistoricalQuota.json";
-import lastQuotaMock from "../../../mock/getLastQuota.json";
+import HistoryMock from "../../../src/mock/gethistoricalQuota.json";
+import lastQuotaMock from "../../../src/mock/getLastQuota.json";
 
 describe("StockServiceProjection", () => {
   const timeHistoricalSeriesSucess = jest.fn().mockImplementation(() => {

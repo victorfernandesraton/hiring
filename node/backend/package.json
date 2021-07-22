@@ -7,7 +7,9 @@
   "scripts": {
     "serve": "env-cmd -e production node index",
     "dev": "env-cmd -e development nodemon index",
-    "test": "env-cmd -e test jest"
+    "test": "env-cmd -e test jest",
+    "test:integration": "env-cmd -e test jest -- test/integration",
+    "test:unit": "env-cmd -e test jest -- test/unit"
   },
   "keywords": [],
   "author": {

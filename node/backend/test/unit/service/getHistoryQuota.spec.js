@@ -1,6 +1,6 @@
-import StockServiceHistoryQuote from "../getHistoryQuote.js";
+import StockServiceHistoryQuote from "../../../src/services/stock/getHistoryQuote.js";
 
-import getHistoryMock from "../../../mock/gethistoricalQuota.json";
+import getHistoryMock from "../../../src/mock/gethistoricalQuota.json";
 
 describe("StockServiceHistoryQuote", () => {
   const validRequest = {

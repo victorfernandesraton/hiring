@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import app from "../index.js";
+import app from "../../src/app/index.js";
 
 describe("getCompareQuota", () => {
   test("should be a valid comparation list", async () => {

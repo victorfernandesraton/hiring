@@ -1,6 +1,6 @@
-import StockServiceCompareQuota from "../getCompareStocks";
-import lastQuotaMock from "../../../mock/getLastQuota.json";
-import StockServiceLastQuota from "../getLastQuota.js";
+import StockServiceCompareQuota from "../../../src/services/stock/getCompareStocks";
+import lastQuotaMock from "../../../src/mock/getLastQuota.json";
+import StockServiceLastQuota from "../../../src/services/stock/getLastQuota.js";
 
 describe("StockServiceCompareQuota", () => {
   const quotaTSCDF = {
