@@ -1,4 +1,4 @@
-import { verifyDateInInterval } from "./timer.js";
+import { gerProximityDate, verifyDateInInterval } from "./timer.js";
 
 export const parseLastStockResponse = ({ stockName, result }) => {
   const price = result?.data?.["Global Quote"]?.["05. price"];
@@ -49,3 +49,18 @@ export const parseHistoricalStockResponse = ({
 export const parseCompareStockResponse = (stocks = []) => ({
   prices: stocks,
 });
+
+export const parseProjectionFromDay = ({ historical, date }) => {
+  const priceListDate = Object.keys(historical);
+  const proximityDate = gerProximityDate({
+    target: new Date(date),
+    dates: priceListDate.map((date) => new Date(date)),
+  });
+
+  const historicalPrice =
+    parseFloat(historical[priceListDate[proximityDate]]?.["4. close"]) ?? 0;
+  return {
+    purchasedAt: priceListDate[proximityDate],
+    priceAtDate: historicalPrice,
+  };
+};

@@ -1,4 +1,8 @@
-import { parseLastStockResponse, parseHistoricalStockResponse } from "../stock";
+import {
+  parseLastStockResponse,
+  parseHistoricalStockResponse,
+  parseProjectionFromDay,
+} from "../stock";
 import { succes } from "../mock/getLastQuota.json";
 import historicalData from "../mock/gethistoricalQuota.json";
 describe("Stock adapters", () => {
@@ -57,6 +61,31 @@ describe("Stock adapters", () => {
       expect(data).toHaveProperty("name", "IBM");
       expect(data).toHaveProperty("prices");
       expect(data.prices).toHaveLength(0);
+    });
+  });
+
+  describe("parseProjectionFromDay", () => {
+    test("shoud be a price at day", () => {
+      expect(
+        parseProjectionFromDay({
+          date: "2021-07-14",
+          historical: historicalData.sucess["Time Series (Daily)"],
+        })
+      ).toEqual({
+        priceAtDate: 139.82,
+        purchasedAt: "2021-07-14",
+      });
+    });
+    test("shoud be a price at proximity day", () => {
+      expect(
+        parseProjectionFromDay({
+          date: "2021-07-18",
+          historical: historicalData.sucess["Time Series (Daily)"],
+        })
+      ).toEqual({
+        priceAtDate: 137.92,
+        purchasedAt: "2021-07-19",
+      });
     });
   });
 });
