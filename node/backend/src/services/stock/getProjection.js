@@ -33,7 +33,8 @@ class StockServiceProjection extends StockService {
       });
 
       const capitalGainsDollar =
-        (projectionForDay.purchasedAt - lastQuota.lastPrice) * annount;
+        (projectionForDay.priceAtDate - lastQuota.lastPrice) *
+        parseFloat(annount);
 
       return {
         ...projectionForDay,

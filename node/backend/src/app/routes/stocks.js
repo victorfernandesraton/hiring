@@ -51,13 +51,14 @@ const stockServiceProjection = new StockServiceProjection({
       },
     }).get,
 
-    getLastQuota: stockServiceInstance,
+    getLastQuota: (...args) => stockServiceInstance.getLastQuota(...args),
   },
 });
 const stockContoller = new StockContoller({
   stockServiceCompareQuota,
   stockServiceHistoryQuote,
   stockServiceInstance,
+  stockServiceProjection: stockServiceProjection,
 });
 
 router.get(
@@ -74,7 +75,7 @@ router.post(
   stcokRoutesConstants.compare,
   ExpressAdapter(stockContoller.getCompareStocks)
 );
-router.post(
+router.get(
   stcokRoutesConstants.projection,
   ExpressAdapter(stockContoller.getProjection)
 );
