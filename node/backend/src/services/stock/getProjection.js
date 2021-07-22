@@ -1,4 +1,5 @@
 import { parseProjectionFromDay } from "../../adapter/stock.js";
+
 import StockService from "./stockService.js";
 
 class StockServiceProjection extends StockService {

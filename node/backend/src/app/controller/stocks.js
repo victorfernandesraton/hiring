@@ -3,10 +3,12 @@ export default class StockController {
     stockServiceInstance,
     stockServiceHistoryQuote,
     stockServiceCompareQuota,
+    stockServiceProjection,
   }) {
     this.stockServiceCompareQuota = stockServiceCompareQuota;
     this.stockServiceHistoryQuote = stockServiceHistoryQuote;
     this.stockServiceInstance = stockServiceInstance;
+    this.stockServiceProjection = stockServiceProjection;
   }
   getLastQuota = async ({ params }) => {
     try {
@@ -39,6 +41,19 @@ export default class StockController {
 
     const result = await this.stockServiceCompareQuota.getCompareStocks({
       stockList: Array.from(new Set([...stocks, stock_name])),
+    });
+
+    return result;
+  };
+
+  getProjection = async ({ params, query }) => {
+    const { stock_name } = params;
+    const { purchasedAmount, purchasedAt } = query;
+
+    const result = await this.stockServiceProjection.getProjections({
+      stockName: stock_name,
+      annount: purchasedAmount,
+      date: purchasedAt,
     });
 
     return result;
