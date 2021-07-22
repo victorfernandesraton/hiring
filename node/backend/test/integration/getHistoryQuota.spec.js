@@ -1,7 +1,7 @@
 import supertest from "supertest";
 import app from "../index.js";
 
-describe("historyQuota", () => {
+describe("GET /stocks/:stock_name/history", () => {
   test("shuld be return valid historyQUota", async () => {
     const result = await supertest(app).get(
       "/stocks/IBM/history?from=2017-04-04&to=2017-04-05"

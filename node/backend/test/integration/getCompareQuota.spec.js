@@ -1,7 +1,7 @@
 import supertest from "supertest";
 import app from "../../src/app/index.js";
 
-describe("getCompareQuota", () => {
+describe("POST /stocks/:stock_name/compare", () => {
   test("should be a valid comparation list", async () => {
     const result = await supertest
       .agent(app)
