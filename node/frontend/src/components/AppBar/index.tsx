@@ -50,13 +50,12 @@ export default function ButtonAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            News
+            MyStocks.com
           </Typography>
-          <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
       <Drawer
-        variant="persistent"
+        variant="permanent"
         anchor={theme.direction === "rtl" ? "right" : "left"}
         open={mobileOpen}
         onClose={setMobileOpen}
