@@ -4,11 +4,8 @@ Simple web app to provider manager and projections about stock market
 
 ## Requirements
 
-- Node.js 14.15.3 or erlier
-- NPM 7.18.1
-- Contentful CLI (only for write access)
-
-Without any changes, this app is connected to a Contentful space with read-only access. To experience the full end-to-end Contentful experience, you need to connect the app to a Contentful space with read and write access. This enables you to see how content editing in the Contentful web app works and how content changes propagate to this app.
+- [**Node.js** 14.15.3](https://nodejs.org) or erlier
+- [**NPM** 7.18.1](https://docs.npmjs.com/about-npm) or [**Yarn** 1.23.0](https://classic.yarnpkg.com/en/docs/install/#debian-stable)
 
 ## Getting start
 
@@ -31,4 +28,32 @@ cd ./backend/ && npm install && cd ../frontent && npm install
 
 ```bash
 cd ./backend/ && yarn install && cd ../backend && yarn install
+```
+
+## Enviroment variables
+
+Create a file `.env-cmdrc` in backend root directory like this
+
+(Read more about [cross-env end of life](https://github.com/kentcdodds/cross-env/issues/257))
+
+**WARNING:** development , production and test also so refer to abient enviroments, commands like ` test` or `start` shoud be unexpected behavior if `.env-cmdrc` file is not created
+
+**WARNING** backend server write using esm features and esm import pattern
+
+```json
+{
+  // if you need an api key read this: https://www.alphavantage.co/support/#api-key
+  "development": {
+    "ALPHA_VANTAGE_API_KEY": "ypur key api",
+    "AlPHA_VANTAGE_API_URI": "https://www.alphavantage.co/"
+  },
+  "production": {
+    "ALPHA_VANTAGE_API_KEY": "ypur key api",
+    "AlPHA_VANTAGE_API_URI": "https://www.alphavantage.co/"
+  },
+  "test": {
+    "ALPHA_VANTAGE_API_KEY": "ypur key api",
+    "AlPHA_VANTAGE_API_URI": "https://www.alphavantage.co/"
+  }
+}
 ```
