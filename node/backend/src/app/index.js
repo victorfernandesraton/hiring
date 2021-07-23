@@ -1,5 +1,7 @@
 import express from "express";
 
+import morgan from "morgan";
+
 import bodyParser from "body-parser";
 import _ from "express-async-errors";
 
@@ -7,6 +9,9 @@ import routes from "./routes/index.js";
 import { ApplicationError } from "../adapter/error.js";
 
 const app = express();
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 
 app.get("/helth", function (req, res) {
   return res.send({
