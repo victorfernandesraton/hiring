@@ -66,7 +66,13 @@ function StockViewContainer({
         </Grid>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Grid container alignContent="flex-start">
+          <Grid item>
+            <Button variant="contained" size="small" color="primary">
+              Adicionar as minhas acões
+            </Button>
+          </Grid>
+        </Grid>
       </CardActions>
     </Card>
   );

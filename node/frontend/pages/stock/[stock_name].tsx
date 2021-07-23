@@ -1,5 +1,4 @@
 import React from "react";
-import { useRouter } from "next/router";
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 
 import { Container, Grid } from "@material-ui/core";
@@ -11,7 +10,6 @@ import StockRequests from "../../src/components/stock/Stock-requests";
 import StockHistoryView from "../../src/components/stockHistorical/StockHistoricalView-container";
 
 function StockPage({ stock }) {
-  const router = useRouter();
   const { name, lastPrice, priceAt } = stock;
   return (
     <Container
@@ -49,7 +47,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({
   params,
 }: GetStaticPropsContext) => {
-  console.log(params);
   const service = new StockService({ request: StockRequests });
   if (!params?.stock_name || params?.stock_name === "") {
     return {
@@ -72,7 +69,6 @@ export const getStaticProps: GetStaticProps = async ({
       revalidate: 5 * 60,
     };
   } catch (error) {
-    console.log(error);
     return {
       redirect: {
         destination: "/",
