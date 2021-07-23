@@ -13,7 +13,7 @@ export const AppBarContext = createContext<AppBarContextType>({
 export const useAppBarContext = () => useContext(AppBarContext);
 
 const AppBarProvider: React.FC = ({ children }) => {
-  const [mobileOpen, setMobileOpen] = useState(true);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleToggle = useCallback(
     () => setMobileOpen(!mobileOpen),

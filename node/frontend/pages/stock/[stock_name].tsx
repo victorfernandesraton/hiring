@@ -1,15 +1,25 @@
 import React from "react";
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
+import {
+  InferGetServerSidePropsType,
+  GetServerSideProps,
+  GetServerSidePropsContext,
+} from "next";
 
 import { Container, Grid } from "@material-ui/core";
 
 import StockViewContainer from "../../src/components/stock/StockViewContainer";
 import { withAppScafold } from "../../src/layout/AppScafold";
-import StockService from "../../src/components/stock/Stock-service";
+import StockService, {
+  StockQuota,
+} from "../../src/components/stock/Stock-service";
 import StockRequests from "../../src/components/stock/Stock-requests";
 import StockHistoryView from "../../src/components/stockHistorical/StockHistoricalView-container";
 
-function StockPage({ stock }) {
+interface StockPageProps {
+  stock: StockQuota;
+}
+
+function StockPage({ stock }: StockPageProps) {
   const { name, lastPrice, priceAt } = stock;
   return (
     <Container
@@ -34,46 +44,25 @@ function StockPage({ stock }) {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const arr: string[] = ["IBM"];
-  const paths = arr.map((stock_name) => {
-    return {
-      params: { stock_name },
-    };
-  });
-  return { paths, fallback: true };
-};
-
-export const getStaticProps: GetStaticProps = async ({
-  params,
-}: GetStaticPropsContext) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const service = new StockService({ request: StockRequests });
   if (!params?.stock_name || params?.stock_name === "") {
     return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
+      notFound: true,
     };
   }
   try {
-    // const res = await service.getLastQuota(params?.stock_name);
+    const res = await service.getLastQuota(params?.stock_name.toString() ?? "");
     return {
       props: {
         stock: {
-          name: "IBM",
-          lastPrice: 137.92,
-          priceAt: "2021-07-19T00:00:00.000Z",
+          ...res,
         },
       },
-      revalidate: 5 * 60,
     };
   } catch (error) {
     return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
+      notFound: true,
     };
   }
 };

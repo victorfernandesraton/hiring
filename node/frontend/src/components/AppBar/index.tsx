@@ -5,6 +5,7 @@ import {
   AppBar,
   Button,
   Drawer,
+  Grid,
   IconButton,
   Toolbar,
   Typography,
@@ -55,7 +56,8 @@ export default function ButtonAppBar() {
         </Toolbar>
       </AppBar>
       <Drawer
-        variant="permanent"
+        style={{ width: 320 }}
+        variant="persistent"
         anchor={theme.direction === "rtl" ? "right" : "left"}
         open={mobileOpen}
         onClose={setMobileOpen}
@@ -63,7 +65,9 @@ export default function ButtonAppBar() {
           keepMounted: true, // Better open performance on mobile.
         }}
       >
-        <AppBarDrawer />
+        <Grid container style={{ width: 320 }}>
+          <AppBarDrawer />
+        </Grid>
       </Drawer>
     </div>
   );

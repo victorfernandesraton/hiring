@@ -20,7 +20,7 @@ export interface StockServiceObjectParams {
 export interface StockQuota {
   name: string;
   lastPrice: number;
-  pricedAt: string;
+  priceAt: string;
 }
 
 export interface StockInfo {
@@ -32,8 +32,8 @@ export interface StockInfo {
 }
 
 export interface StockHistoryinterval {
-  to: Date;
-  from: Date;
+  to?: Date;
+  from?: Date;
 }
 
 export interface StockProjection {
