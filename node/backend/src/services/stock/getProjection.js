@@ -38,10 +38,9 @@ class StockServiceProjection extends StockService {
         parseFloat(annount);
 
       return {
-        ...projectionForDay,
+        ...projectionForDay, // TODO converter pra dolar
         name: stockName,
         purchasedAmount: annount,
-        ...projectionForDay, // TODO converter pra dolar
         lastPrice: lastQuota.lastPrice,
         capitalGains: capitalGainsDollar,
       };
