@@ -1,3 +1,6 @@
+import React from "react";
+import Link from "next/link";
+
 import {
   createStyles,
   Divider,
@@ -9,7 +12,7 @@ import {
   Theme,
 } from "@material-ui/core";
 import { ChevronLeft as ChevronLeftIcon } from "@material-ui/icons";
-import React from "react";
+
 import { useAppBarContext } from "./AppBar-context";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -43,20 +46,18 @@ function AppBarDrawer() {
       </div>
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
-          </ListItem>
+        {[
+          { path: "/", name: "Inicio" },
+          { path: "/me", name: "Minhas acões" },
+        ].map(({ name, path }) => (
+          <Link href={path} key={path}>
+            <ListItem button>
+              <ListItemText primary={name} />
+            </ListItem>
+          </Link>
         ))}
       </List>
       <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
     </div>
   );
 }

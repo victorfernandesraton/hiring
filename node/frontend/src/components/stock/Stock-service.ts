@@ -50,7 +50,6 @@ export class StockService {
   readonly request: StockServiceRequest;
   constructor({ request }: StockServiceObjectParams) {
     this.request = request;
-    this;
   }
 
   async getLastQuota(stockName: string): Promise<StockQuota> {
