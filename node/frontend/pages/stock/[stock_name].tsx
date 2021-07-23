@@ -2,24 +2,36 @@ import React from "react";
 import { useRouter } from "next/router";
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 
-import { Container } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 
 import StockViewContainer from "../../src/components/stock/StockViewContainer";
 import { withAppScafold } from "../../src/layout/AppScafold";
 import StockService from "../../src/components/stock/Stock-service";
 import StockRequests from "../../src/components/stock/Stock-requests";
+import StockHistoryView from "../../src/components/stockHistorical/StockHistoricalView-container";
 
 function StockPage({ stock }) {
   const router = useRouter();
   const { name, lastPrice, priceAt } = stock;
   return (
-    <Container>
-      <StockViewContainer
-        reference={name}
-        name={name}
-        dateRegister={new Date(priceAt)}
-        quota={lastPrice}
-      />
+    <Container
+      style={{
+        marginTop: 32,
+      }}
+    >
+      <Grid container direction="row" spacing={2}>
+        <Grid item>
+          <StockViewContainer
+            reference={name}
+            name={name}
+            dateRegister={new Date(priceAt)}
+            quota={lastPrice}
+          />
+        </Grid>
+        <Grid item>
+          <StockHistoryView />
+        </Grid>
+      </Grid>
     </Container>
   );
 }
