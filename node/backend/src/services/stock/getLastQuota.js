@@ -11,7 +11,7 @@ class StockServiceLastQuota extends StockService {
     try {
       const result = await this.request.get(`/query`, {
         params: {
-          function: "GLOBAL_QUOTE&",
+          function: "GLOBAL_QUOTE",
           symbol: stockName,
         },
       });
