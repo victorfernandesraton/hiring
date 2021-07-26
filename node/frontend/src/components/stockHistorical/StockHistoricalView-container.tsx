@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useCallback, useReducer } from "react";
 
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import { CardContent } from "@material-ui/core";
+
+import Reducer, {
+  InitialState,
+  StockHistoricalReducerTypes,
+} from "./StockHistorical-reducer";
 
 const useStyles = makeStyles({
   root: {
@@ -24,26 +29,40 @@ const useStyles = makeStyles({
 
 export default function OutlinedCard() {
   const classes = useStyles();
+  const [{ loading, called, error, data, dateFrom, dateTo }, dispatch] =
+    useReducer(Reducer, InitialState);
+
+  const handleChangeDateFrom = useCallback((value) => {
+    dispatch({
+      type: StockHistoricalReducerTypes.UPDATE_DATE_FROM,
+      payload: { dateFrom: value },
+    });
+  }, []);
+
+  const handleChangeDateTo = useCallback((value) => {
+    dispatch({
+      type: StockHistoricalReducerTypes.UPDATE_DATE_TO,
+      payload: { dateTo: value },
+    });
+  }, []);
 
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent>
         <KeyboardDatePicker
           clearable
-          value={new Date()}
+          value={dateFrom ?? new Date()}
           label="De"
           placeholder="10/10/2018"
-          // onChange={date => handleDateChange(date)}
-          onChange={console.log}
+          onChange={(date) => handleChangeDateFrom(date)}
           format="MM/dd/yyyy"
         />
         <KeyboardDatePicker
           clearable
           label="Até"
-          value={new Date()}
+          value={dateTo ?? new Date()}
           placeholder="10/10/2018"
-          // onChange={date => handleDateChange(date)}
-          onChange={console.log}
+          onChange={(date) => handleChangeDateTo(date)}
           format="MM/dd/yyyy"
         />
       </CardContent>

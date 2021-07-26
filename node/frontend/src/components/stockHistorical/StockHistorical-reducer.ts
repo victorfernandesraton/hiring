@@ -5,6 +5,8 @@ export enum StockHistoricalReducerTypes {
   LOADING = "LOADING",
   SUCCESS = "SUCCESS",
   ERROR = "ERROR",
+  UPDATE_DATE_FROM = "UPDATE_DATE_FROM",
+  UPDATE_DATE_TO = "UPDATE_DATE_TO",
 }
 
 export interface InitialStateType extends StockHistoryinterval {
@@ -12,6 +14,8 @@ export interface InitialStateType extends StockHistoryinterval {
   loading: boolean;
   eror: any;
   called: boolean;
+  dateFrom?: Date;
+  dateTo?: Date;
 }
 
 export const InitialState = {
@@ -19,13 +23,15 @@ export const InitialState = {
   loading: false,
   called: false,
   error: null,
+  dateFrom: null,
+  dateTo: null,
 };
 interface ReducerParams {
   type: StockHistoricalReducerTypes;
   payload?: any;
 }
 export default function Reducer(
-  state = initialState,
+  state = InitialState,
   { type, payload }: ReducerParams
 ) {
   switch (type) {
@@ -41,6 +47,14 @@ export default function Reducer(
         error: null,
         called: true,
       };
+    case StockHistoricalReducerTypes.UPDATE_DATE_FROM:
+    case StockHistoricalReducerTypes.UPDATE_DATE_TO: {
+      return {
+        ...state,
+        dateFrom: payload?.dateFrom ?? state.dateFrom,
+        dateTo: payload.dateTo ?? state.dateTo,
+      };
+    }
     default:
       return state;
   }
