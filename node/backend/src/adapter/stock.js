@@ -64,3 +64,13 @@ export const parseProjectionFromDay = ({ historical, date }) => {
     priceAtDate: historicalPrice,
   };
 };
+
+export const parseSearchResults = (response = []) => {
+  return {
+    data: response.map((item) => ({
+      name: item?.["2. name"] ?? "",
+      type: item?.["3. type"] ?? "",
+      symbol: item?.["1. symbol"] ?? "",
+    })),
+  };
+};
