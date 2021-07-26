@@ -3,4 +3,5 @@ export const stcokRoutesConstants = {
   history: "/:stock_name/history",
   compare: "/:stock_name/compare",
   projection: "/:stock_name/gains",
+  search: "/search",
 };

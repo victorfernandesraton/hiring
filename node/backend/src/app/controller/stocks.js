@@ -4,11 +4,13 @@ export default class StockController {
     stockServiceHistoryQuote,
     stockServiceCompareQuota,
     stockServiceProjection,
+    stockServiceSearch,
   }) {
     this.stockServiceCompareQuota = stockServiceCompareQuota;
     this.stockServiceHistoryQuote = stockServiceHistoryQuote;
     this.stockServiceInstance = stockServiceInstance;
     this.stockServiceProjection = stockServiceProjection;
+    this.stockSerach = stockServiceSearch;
   }
   getLastQuota = async ({ params }) => {
     try {
@@ -55,6 +57,14 @@ export default class StockController {
       annount: purchasedAmount,
       date: purchasedAt,
     });
+
+    return result;
+  };
+
+  getSerach = async ({ query }) => {
+    const stock_name = query?.query;
+
+    const result = await this.stockSerach.findStockByName(stock_name);
 
     return result;
   };

@@ -2,7 +2,7 @@ import StockService from "./stockService.js";
 import { parseSearchResults } from "../../adapter/stock.js";
 import { ApplicationError } from "../../adapter/error.js";
 class SearchStockService extends StockService {
-  async findStockByname(stok_name) {
+  async findStockByName(stok_name) {
     try {
       const response = await this.request.get("query", {
         params: {

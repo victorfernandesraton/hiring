@@ -1,4 +1,4 @@
-import SearchStockService from "../../../src/services/stock/searchStock";
+import SearchStockService from "../../../src/services/stock/searchStock.js";
 import GetSeachMock from "../../../src/mock/getSerachStock.json";
 describe("SearchStockService", () => {
   const successResponse = jest.fn().mockImplementation(async (stock_name) => {
@@ -17,7 +17,7 @@ describe("SearchStockService", () => {
       },
     });
 
-    const result = await service.findStockByname("IBM");
+    const result = await service.findStockByName("IBM");
 
     expect(result.data).toHaveLength(10);
   });
@@ -29,7 +29,7 @@ describe("SearchStockService", () => {
       },
     });
 
-    const result = await service.findStockByname("hkdbceb");
+    const result = await service.findStockByName("hkdbceb");
     expect(result.data).toHaveLength(0);
   });
   test("shoud be an server error", async () => {
@@ -38,7 +38,7 @@ describe("SearchStockService", () => {
         get: (stock_name) => errorResponse(stock_name),
       },
     });
-    await expect(service.findStockByname("")).rejects.toThrowError(
+    await expect(service.findStockByName("")).rejects.toThrowError(
       "stocks not match for any value"
     );
   });
