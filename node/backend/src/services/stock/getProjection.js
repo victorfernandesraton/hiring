@@ -4,11 +4,6 @@ import { parseProjectionFromDay } from "../../adapter/stock.js";
 import StockService from "./stockService.js";
 
 class StockServiceProjection extends StockService {
-  constructor({ key, uri, request }) {
-    super({ key, uri });
-    this.request = request;
-  }
-
   async getProjections({ stockName, annount, date }) {
     try {
       const [responseHistory, lastQuota] = await Promise.all([

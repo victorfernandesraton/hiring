@@ -4,11 +4,6 @@ import { parseCompareStockResponse } from "../../adapter/stock.js";
 import StockService from "./stockService.js";
 
 class StockServiceCompareQuota extends StockService {
-  constructor({ key, uri, request }) {
-    super({ key, uri });
-    this.request = request;
-  }
-
   async getCompareStocks({ stockList = [] }) {
     const promisses = stockList.map(async (stcok) => {
       try {

@@ -3,11 +3,6 @@ import { ApplicationError } from "../../adapter/error.js";
 import { parseHistoricalStockResponse } from "../../adapter/stock.js";
 
 class StockServiceHistoryQuote extends StockService {
-  constructor({ key, uri, request }) {
-    super({ key, uri });
-    this.request = request;
-  }
-
   async getHistoryQuote({ stockName, from, to }) {
     try {
       const response = await this.request.get(`/query`, {

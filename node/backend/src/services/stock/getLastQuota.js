@@ -3,10 +3,6 @@ import { parseLastStockResponse } from "../../adapter/stock.js";
 import { ApplicationError } from "../../adapter/error.js";
 
 class StockServiceLastQuota extends StockService {
-  constructor({ key, uri, request }) {
-    super({ key, uri });
-    this.request = request;
-  }
   async getLastQuota(stockName) {
     try {
       const result = await this.request.get(`/query`, {
