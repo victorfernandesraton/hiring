@@ -1,14 +1,19 @@
 import React, { useCallback, useReducer, useEffect, useMemo } from "react";
 
-import { KeyboardDatePicker } from "@material-ui/pickers";
+import {
+  CardContent,
+  Typography,
+  CircularProgress,
+  Card,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import { CardContent } from "@material-ui/core";
+
+import { KeyboardDatePicker } from "@material-ui/pickers";
 
 import StockService from "../stock/Stock-service";
 import StockRequests from "../stock/Stock-requests";
-import Reducer, { InitialState } from "./StockHistorical-reducer";
 
+import Reducer, { InitialState } from "./StockHistorical-reducer";
 import StockHistoricalChart from "./StockHistoricalChard";
 import { parseDataToHistoricalChart } from "./StockHistorical-utils";
 import {
@@ -86,32 +91,44 @@ export default function StockHistorical({ stockName }: StockHistoricalProps) {
     <>
       <Card className={classes.root} variant="outlined">
         <CardContent>
-          <KeyboardDatePicker
-            clearable
-            value={dateFrom ?? new Date()}
-            label="De"
-            placeholder="10/10/2018"
-            onChange={(date) => handleChangeDateFrom(date)}
-            format="MM/dd/yyyy"
-          />
-          <KeyboardDatePicker
-            clearable
-            label="Até"
-            value={dateTo ?? new Date()}
-            placeholder="10/10/2018"
-            onChange={(date) => handleChangeDateTo(date)}
-            format="MM/dd/yyyy"
-          />
+          {[
+            { value: dateFrom, handler: handleChangeDateFrom, label: "From" },
+            {
+              value: dateTo,
+              handler: handleChangeDateTo,
+              label: "To",
+            },
+          ].map((item) => (
+            <>
+              <KeyboardDatePicker
+                clearable
+                value={item.value ?? new Date()}
+                label={item.label}
+                placeholder="10/10/2018"
+                onChange={(date) => item.handler(date)}
+                format="MM/dd/yyyy"
+                showTodayButton
+              />
+            </>
+          ))}
         </CardContent>
       </Card>
       <CardContent>
-        {data?.length > 0 && (
-          <StockHistoricalChart
-            {...parseDataToHistoricalChart({
-              prices: data,
-              name: stockName,
-            })}
-          />
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <>
+            {data?.length > 0 && called ? (
+              <StockHistoricalChart
+                {...parseDataToHistoricalChart({
+                  prices: data,
+                  name: stockName,
+                })}
+              />
+            ) : (
+              <Typography variant="h2">Selecione uma data válida</Typography>
+            )}
+          </>
         )}
       </CardContent>
     </>
