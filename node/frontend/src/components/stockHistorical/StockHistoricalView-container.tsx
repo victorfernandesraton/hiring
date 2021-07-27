@@ -1,5 +1,4 @@
-import React, { useCallback, useReducer, useEffect } from "react";
-import { format } from "date-fns";
+import React, { useCallback, useReducer, useEffect, useMemo } from "react";
 
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import { makeStyles } from "@material-ui/core/styles";
@@ -8,13 +7,15 @@ import { CardContent } from "@material-ui/core";
 
 import StockService from "../stock/Stock-service";
 import StockRequests from "../stock/Stock-requests";
-import Reducer, {
-  InitialState,
-  StockHistoricalReducerTypes,
-} from "./StockHistorical-reducer";
+import Reducer, { InitialState } from "./StockHistorical-reducer";
 
 import StockHistoricalChart from "./StockHistoricalChard";
 import { parseDataToHistoricalChart } from "./StockHistorical-utils";
+import {
+  getHistorical,
+  updateDatefrom,
+  updateDateTo,
+} from "./StockHistorical-actions";
 
 const useStyles = makeStyles({
   root: {
@@ -42,52 +43,44 @@ export default function StockHistorical({ stockName }: StockHistoricalProps) {
   const [{ loading, called, error, data, dateFrom, dateTo }, dispatch] =
     useReducer(Reducer, InitialState);
 
-  const handleChangeDateFrom = useCallback((value) => {
-    dispatch({
-      type: StockHistoricalReducerTypes.UPDATE_DATE_FROM,
-      payload: { dateFrom: value },
-    });
-  }, []);
-
-  const handleChangeDateTo = useCallback((value) => {
-    dispatch({
-      type: StockHistoricalReducerTypes.UPDATE_DATE_TO,
-      payload: { dateTo: value },
-    });
-  }, []);
-
-  const getHistorical = useCallback(
-    async ({ dateFrom, dateTo }) => {
-      dispatch({ type: StockHistoricalReducerTypes.LOADING });
-      const stockServiceInstance = new StockService({
+  const stockServiceInstance = useMemo(
+    () =>
+      new StockService({
         request: {
           get: StockRequests.get,
           post: StockRequests.post,
         },
-      });
-      const response = await stockServiceInstance.getHistory(stockName, {
-        from: dateFrom,
-        to: dateTo,
-      });
+      }),
+    []
+  );
+  const handleChangeDateFrom = useCallback((value) => {
+    updateDateTo(dispatch, value);
+  }, []);
 
-      dispatch({
-        type: StockHistoricalReducerTypes.SUCCESS,
-        payload: {
-          data: response,
-        },
+  const handleChangeDateTo = useCallback((value) => {
+    updateDatefrom(dispatch, value);
+  }, []);
+
+  const getHistoricalData = useCallback(
+    async ({ dateFrom, dateTo, stockName }) => {
+      getHistorical(stockServiceInstance)(dispatch, {
+        dateFrom,
+        dateTo,
+        stockName,
       });
     },
-    [loading, error]
+    [stockServiceInstance]
   );
 
   useEffect(() => {
     if (dateFrom != dateTo && dateFrom && dateTo) {
-      getHistorical({
-        dateFrom: format(dateFrom, "yyyy-MM-dd"),
-        dateTo: format(dateTo, "yyyy-MM-dd"),
+      getHistoricalData({
+        dateFrom,
+        dateTo,
+        stockName,
       });
     }
-  }, [dateFrom, dateTo]);
+  }, [dateFrom, dateTo, getHistoricalData, stockName]);
 
   return (
     <>

@@ -32,8 +32,8 @@ export interface StockInfo {
 }
 
 export interface StockHistoryinterval {
-  to?: Date;
-  from?: Date;
+  to?: string;
+  from?: string;
 }
 
 export interface StockProjection {
