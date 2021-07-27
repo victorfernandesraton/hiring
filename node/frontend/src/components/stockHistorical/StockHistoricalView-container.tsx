@@ -54,11 +54,11 @@ export default function StockHistorical({ stockName }: StockHistoricalProps) {
     []
   );
   const handleChangeDateFrom = useCallback((value) => {
-    updateDateTo(dispatch, value);
+    updateDatefrom(dispatch, value);
   }, []);
 
   const handleChangeDateTo = useCallback((value) => {
-    updateDatefrom(dispatch, value);
+    updateDateTo(dispatch, value);
   }, []);
 
   const getHistoricalData = useCallback(
@@ -105,7 +105,7 @@ export default function StockHistorical({ stockName }: StockHistoricalProps) {
         </CardContent>
       </Card>
       <CardContent>
-        {data?.length && (
+        {data?.length > 0 && (
           <StockHistoricalChart
             {...parseDataToHistoricalChart({
               prices: data,

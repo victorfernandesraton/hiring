@@ -10,7 +10,10 @@ const updateDate =
   (dispatch: Dispatch<any>, value: Date) => {
     dispatch({
       type,
-      payload: { dateFrom: value },
+      payload:
+        type === StockHistoricalReducerTypes.UPDATE_DATE_FROM
+          ? { dateFrom: value }
+          : { dateTo: value },
     });
   };
 
