@@ -6,7 +6,7 @@ import { withAppScafold } from "../src/layout/AppScafold";
 
 function Home() {
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" style={{ marginTop: 26 }}>
       <StockSearchView />
     </Container>
   );

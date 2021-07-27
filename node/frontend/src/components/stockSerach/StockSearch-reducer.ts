@@ -1,3 +1,5 @@
+import { StockSearchItem } from "./StockSerach-service";
+
 export enum StockSearchReducerTypes {
   LOADING = "LOADING",
   SUCCESS = "SUCCESS",
@@ -6,7 +8,7 @@ export enum StockSearchReducerTypes {
 }
 
 export interface InitialStateType {
-  data: [];
+  data: StockSearchItem[];
   loading: boolean;
   eror: any;
   called: boolean;
@@ -14,7 +16,7 @@ export interface InitialStateType {
 }
 
 export const initialState = {
-  data: new Array(),
+  data: new Array<StockSearchItem>(),
   loading: false,
   called: false,
   error: null,

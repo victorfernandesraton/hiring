@@ -1,10 +1,19 @@
 import React, { useCallback, useMemo, useReducer } from "react";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
-import IconButton from "@material-ui/core/IconButton";
+import {
+  CircularProgress,
+  Container,
+  Typography,
+  Paper,
+  InputBase,
+  IconButton,
+} from "@material-ui/core";
+
 import SearchIcon from "@material-ui/icons/Search";
+
+import StockRequests from "../stock/Stock-requests";
+import SearchListView from "../stockSearchList/StockSearchListView-container";
 
 import Reducer, {
   initialState,
@@ -12,7 +21,6 @@ import Reducer, {
 } from "./StockSearch-reducer";
 import { serachStocks, updateTextSearch } from "./StockSearch-actions";
 import StockSearchService from "./StockSerach-service";
-import StockRequests from "../stock/Stock-requests";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,7 +65,7 @@ export default function StockSearchView() {
     [stockServiceInstance, StockSearchReducerTypes]
   );
 
-  const [{ query, loading, called, error }, dispatch] = useReducer(
+  const [{ query, loading, called, error, data }, dispatch] = useReducer(
     Reducer,
     initialState
   );
@@ -67,27 +75,46 @@ export default function StockSearchView() {
     []
   );
   return (
-    <Paper component="form" className={classes.root}>
-      <InputBase
-        value={query}
-        onChange={(e) => updateText(e.target.value.toString())}
-        className={classes.input}
-        placeholder="Search Stock"
-        inputProps={{ "aria-label": "search" }}
-      />
-      <IconButton
-        disabled={loading}
-        type="submit"
-        className={classes.iconButton}
-        onClick={(e) => {
-          if (query && query != "") {
-            stockSerachAction(dispatch, query);
-          }
-        }}
-        aria-label="search"
-      >
-        <SearchIcon />
-      </IconButton>
-    </Paper>
+    <>
+      <Container>
+        <Paper component="form" className={classes.root}>
+          <InputBase
+            value={query}
+            onChange={(e) => updateText(e.target.value.toString())}
+            className={classes.input}
+            placeholder="Search Stock"
+            inputProps={{ "aria-label": "search" }}
+          />
+          <IconButton
+            disabled={loading}
+            type="submit"
+            className={classes.iconButton}
+            onClick={(e) => {
+              if (query && query != "") {
+                stockSerachAction(dispatch, query);
+              }
+            }}
+            aria-label="search"
+          >
+            <SearchIcon />
+          </IconButton>
+        </Paper>
+      </Container>
+      <Container>
+        {loading && <CircularProgress />}
+
+        {data.length > 0 ? (
+          <SearchListView data={data} />
+        ) : (
+          <>
+            {called && !loading && (
+              <Container>
+                <Typography variant="h2">Not Found</Typography>
+              </Container>
+            )}
+          </>
+        )}
+      </Container>
+    </>
   );
 }
