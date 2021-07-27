@@ -1,0 +1,19 @@
+{
+  "name": "IBM",
+  "prices": [
+    {
+      "opening": 146.91,
+      "high": 146.95,
+      "low": 139.46,
+      "closing": 140.02,
+      "pricedAt": "2021-07-02"
+    },
+    {
+      "opening": 146.96,
+      "high": 147.5,
+      "low": 146.57,
+      "closing": 146.84,
+      "pricedAt": "2021-07-01"
+    }
+  ]
+}

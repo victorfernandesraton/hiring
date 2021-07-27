@@ -5,10 +5,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import { CardContent } from "@material-ui/core";
 
+import getStockHistoricalMock from "../../../mocks/historicaldata.json";
+
 import Reducer, {
   InitialState,
   StockHistoricalReducerTypes,
 } from "./StockHistorical-reducer";
+import StockHistoricalChart from "./STockHistoricalChard";
 
 const useStyles = makeStyles({
   root: {
@@ -65,6 +68,7 @@ export default function OutlinedCard() {
           onChange={(date) => handleChangeDateTo(date)}
           format="MM/dd/yyyy"
         />
+        <StockHistoricalChart data={getStockHistoricalMock} />
       </CardContent>
     </Card>
   );
