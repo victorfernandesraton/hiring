@@ -1,9 +1,7 @@
 import React from "react";
-import {
-  InferGetServerSidePropsType,
-  GetServerSideProps,
-  GetServerSidePropsContext,
-} from "next";
+import { GetServerSideProps } from "next";
+import Head from "next/head";
+import { format } from "date-fns";
 
 import { Container, Grid } from "@material-ui/core";
 
@@ -22,25 +20,37 @@ interface StockPageProps {
 function StockPage({ stock }: StockPageProps) {
   const { name, lastPrice, priceAt } = stock;
   return (
-    <Container
-      style={{
-        marginTop: 32,
-      }}
-    >
-      <Grid container direction="row" spacing={2}>
-        <Grid item>
-          <StockViewContainer
-            reference={name}
-            name={name}
-            dateRegister={new Date(priceAt)}
-            quota={lastPrice}
-          />
+    <>
+      <Head>
+        <title>{`Info - ${name}`}</title>
+        <meta
+          name="description"
+          content={`Stock ${name} evaluated in ${lastPrice} at ${format(
+            new Date(priceAt),
+            "eeee"
+          )}`}
+        />
+      </Head>
+      <Container
+        style={{
+          marginTop: 32,
+        }}
+      >
+        <Grid container direction="row" spacing={2}>
+          <Grid item>
+            <StockViewContainer
+              reference={name}
+              name={name}
+              dateRegister={new Date(priceAt)}
+              quota={lastPrice}
+            />
+          </Grid>
+          <Grid item>
+            <StockHistoryView stockName={name} />
+          </Grid>
         </Grid>
-        <Grid item>
-          <StockHistoryView stockName={name} />
-        </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </>
   );
 }
 

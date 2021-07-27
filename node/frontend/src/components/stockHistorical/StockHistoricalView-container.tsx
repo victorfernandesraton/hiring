@@ -1,4 +1,5 @@
 import React, { useCallback, useReducer, useEffect, useMemo } from "react";
+import { differenceInDays } from "date-fns";
 
 import {
   CardContent,
@@ -78,7 +79,7 @@ export default function StockHistorical({ stockName }: StockHistoricalProps) {
   );
 
   useEffect(() => {
-    if (dateFrom != dateTo && dateFrom && dateTo) {
+    if (differenceInDays(dateFrom, dateTo) != 0 && dateFrom && dateTo) {
       getHistoricalData({
         dateFrom,
         dateTo,
@@ -102,7 +103,7 @@ export default function StockHistorical({ stockName }: StockHistoricalProps) {
             <>
               <KeyboardDatePicker
                 clearable
-                value={item.value ?? new Date()}
+                value={item.value ?? null}
                 label={item.label}
                 placeholder="10/10/2018"
                 onChange={(date) => item.handler(date)}

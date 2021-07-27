@@ -56,22 +56,15 @@ function StockViewContainer({
         <Typography className={classes.pos} color="textSecondary">
           {quota}
         </Typography>
-        <Grid container direction="row" alignItems="stretch">
-          <Typography variant="body2" component="p">
-            {format(dateRegister, "eeee")}
-          </Typography>
-          <Typography variant="body2" color="textSecondary">
-            {format(dateRegister, "dd/MM/yyyy")}
-          </Typography>
-        </Grid>
+        <Typography variant="body2" component="p">
+          {format(dateRegister, "eeee")}
+        </Typography>
       </CardContent>
       <CardActions>
         <Grid container alignContent="flex-start">
-          <Grid item>
-            <Button variant="contained" size="small" color="primary">
-              Adicionar as minhas acões
-            </Button>
-          </Grid>
+          <Button variant="contained" size="small" color="primary">
+            Adicionar as minhas acões
+          </Button>
         </Grid>
       </CardActions>
     </Card>

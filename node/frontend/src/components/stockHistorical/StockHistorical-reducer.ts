@@ -23,8 +23,8 @@ export const InitialState = {
   loading: false,
   called: false,
   error: null,
-  dateFrom: new Date(Date.now()),
-  dateTo: new Date(Date.now()),
+  dateFrom: null,
+  dateTo: null,
 };
 interface ReducerParams {
   type: StockHistoricalReducerTypes;
