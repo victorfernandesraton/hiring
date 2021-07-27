@@ -37,7 +37,7 @@ function StockPage({ stock }: StockPageProps) {
           />
         </Grid>
         <Grid item>
-          <StockHistoryView />
+          <StockHistoryView stockName={name} />
         </Grid>
       </Grid>
     </Container>

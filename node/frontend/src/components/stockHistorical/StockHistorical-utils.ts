@@ -1,6 +1,6 @@
 export interface StockHistoryInChart {
   name: string;
-  color: string;
+
   data: StockHistoryItemInChart[];
 }
 export interface StockHistoryItemInChart {
@@ -9,14 +9,14 @@ export interface StockHistoryItemInChart {
 }
 
 export const parseDataToHistoricalChart = (data: any): StockHistoryInChart => {
+  console.log(data.prices);
   return {
     name: data.name,
-    color: "hsl(121, 70%, 50%)",
-    data: [
-      data.prices.map((item: any) => ({
+    data: data.prices
+      .map((item: any) => ({
         x: item.pricedAt,
         y: item.closing,
-      })),
-    ],
+      }))
+      .sort((a: any, b: any) => b.y - a.y),
   };
 };

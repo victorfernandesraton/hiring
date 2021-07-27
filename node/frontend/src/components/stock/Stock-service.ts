@@ -70,7 +70,7 @@ export class StockService {
       },
     });
 
-    return { ...response.data };
+    return response?.data?.prices;
   }
   async getCompare(stock: string, stockNames: string[]): Promise<StockQuota[]> {
     const response = await this.request.post(compare(stock), {
