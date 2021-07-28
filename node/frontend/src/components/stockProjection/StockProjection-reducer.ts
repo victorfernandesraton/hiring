@@ -41,7 +41,7 @@ export default function Reducer(
     case StockProjectionReducerTypes.SUCCESS:
       return {
         ...state,
-        data: payload.data,
+        data: payload.value,
         loading: false,
         error: null,
         called: true,

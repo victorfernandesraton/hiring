@@ -40,21 +40,21 @@ function StockProjectionView({ name }: StockProjectionViewProps) {
 
   useEffect(() => {
     if (!loading && ammount && dateFrom) {
-      console.log(loading);
-      //     getProjection({
-      //       ammount,
-      //       stockName: name,
-      //       date: dateFrom,
-      //     });
+      getProjection({
+        ammount,
+        stockName: name,
+        date: dateFrom,
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dateFrom, ammount, loading, name]);
+  }, [dateFrom, ammount, name]);
 
   return (
     <Container>
       <Grid container>
         <Grid item xs={4}>
           <TextField
+            disabled={loading}
             value={ammount}
             onChange={(e) => onAmmountChange(parseInt(e.target.value))}
             id="standard-number"
@@ -68,6 +68,7 @@ function StockProjectionView({ name }: StockProjectionViewProps) {
         <Grid item xs={8}>
           <KeyboardDatePicker
             clearable
+            disabled={loading}
             value={dateFrom}
             label={"In"}
             placeholder="10/10/2018"
