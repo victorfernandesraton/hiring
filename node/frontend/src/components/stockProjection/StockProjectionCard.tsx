@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo, useReducer } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -20,6 +20,13 @@ import {
 
 import { red, green, yellow } from "@material-ui/core/colors";
 import StockProjectionQuota from "./StockProjectionQuota";
+import Reducer, {
+  InitialState,
+  StockProjectionReducerTypes,
+} from "./StockProjection-reducer";
+import StockProjectionService from "./StockPorjection-service";
+import StockRequests from "../stock/Stock-requests";
+import { useEffect } from "react";
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -51,7 +58,6 @@ export interface StockProjectionCardProps {
 
 function StockProjectionCard({
   name,
-
   inData,
   last,
   gains,

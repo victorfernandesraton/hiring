@@ -49,7 +49,7 @@ function StockPage({ stock }: StockPageProps) {
           <Grid item>
             <StockHistoryView stockName={name} />
             <Grid item>
-              <StockProjectionViewContainer />
+              <StockProjectionViewContainer name={name} />
             </Grid>
           </Grid>
         </Grid>
