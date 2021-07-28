@@ -1,18 +1,23 @@
 import React, { useReducer, createContext, useContext } from "react";
+import { useMemo } from "react";
 import { useCallback } from "react";
-import { StockInfo } from "../stock/Stock-service";
+import StockRequests from "../stock/Stock-requests";
+import { StockQuota } from "../stock/Stock-service";
 import Reducer, {
   initialState,
   InitialStateType,
   StockCompareReducerTypes,
 } from "./StockCompare-reducer";
+import StockCompareService from "./StockCompare-service";
 
 export interface StockCompareContextType {
   data: string[];
   addTip: (tip: string) => void;
   removeTip: (tip: string) => void;
   addBase: (value: string) => void;
+  getCompare: () => void;
   base: string | null;
+  result: StockQuota[];
 }
 const StockCompareContext = createContext({
   data: new Array<string>(),
@@ -20,9 +25,13 @@ const StockCompareContext = createContext({
   addTip: (tip: string) => {},
   removeTip: (tip: string) => {},
   addBase: (value: string) => {},
+  getCompare: () => {},
+  result: new Array<StockQuota>(),
 } as StockCompareContextType);
 const StockCompareContextProvider: React.FC = ({ children }) => {
+  const service = useMemo(() => new StockCompareService(StockRequests), []);
   const [state, dispatch] = useReducer(Reducer, initialState);
+
   const addTip = useCallback((tip: string) => {
     dispatch({
       type: StockCompareReducerTypes.ADD_TIP,
@@ -43,9 +52,37 @@ const StockCompareContextProvider: React.FC = ({ children }) => {
       payload: { value },
     });
   }, []);
+
+  const getCompare = useCallback(async () => {
+    dispatch({
+      type: StockCompareReducerTypes.LOADING,
+    });
+
+    try {
+      const response = await service.getCompare(state.base, state.data);
+
+      dispatch({
+        type: StockCompareReducerTypes.SUCESS,
+        payload: { value: response },
+      });
+    } catch (error) {
+      dispatch({
+        type: StockCompareReducerTypes.ERROR,
+        payload: { error },
+      });
+    }
+  }, [state.base, state.data.length, service]);
   return (
     <StockCompareContext.Provider
-      value={{ data: state.data, addTip, removeTip, addBase, base: state.base }}
+      value={{
+        data: state.data,
+        addTip,
+        removeTip,
+        addBase,
+        base: state.base,
+        getCompare,
+        result: state.result,
+      }}
     >
       {children}
     </StockCompareContext.Provider>

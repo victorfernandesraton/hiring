@@ -46,10 +46,12 @@ const useStyles = makeStyles((theme: Theme) =>
 export interface StockSearchViewProps {
   onClickResult?: (item: StockSearchItem) => void;
   width?: number;
+  isOpenList?: boolean;
 }
 export default function StockSearchView({
   onClickResult,
   width = 400,
+  isOpenList = true,
 }: StockSearchViewProps) {
   const classes = useStyles();
 
@@ -109,7 +111,7 @@ export default function StockSearchView({
       <Container>
         {loading && <CircularProgress />}
 
-        {data.length > 0 ? (
+        {data.length > 0 && isOpenList ? (
           <SearchListView data={data} onClickResult={onClickResult} />
         ) : (
           <>

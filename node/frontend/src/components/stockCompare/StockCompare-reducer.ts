@@ -1,9 +1,12 @@
+import { StockQuota } from "../stock/Stock-service";
+
 export interface InitialStateType {
   loading: boolean;
   called: boolean;
   error: any;
   base: string;
   data: string[];
+  result: StockQuota[];
 }
 
 export enum StockCompareReducerTypes {
@@ -21,11 +24,12 @@ export const initialState = {
   error: null,
   base: null,
   data: new Array<string>(),
+  result: new Array<StockQuota>(),
 };
 
 export interface ReducerParams {
   type: StockCompareReducerTypes;
-  payload: any;
+  payload?: any;
 }
 
 const Reducer = (state = initialState, { type, payload }: ReducerParams) => {
@@ -34,6 +38,13 @@ const Reducer = (state = initialState, { type, payload }: ReducerParams) => {
       return { ...state, loading: true };
     case StockCompareReducerTypes.ERROR:
       return { ...state, error: payload?.error, loading: false };
+    case StockCompareReducerTypes.SUCESS:
+      return {
+        ...state,
+        result: payload.value,
+        called: true,
+        loading: false,
+      };
     case StockCompareReducerTypes.ADD_TIP:
       return {
         ...state,

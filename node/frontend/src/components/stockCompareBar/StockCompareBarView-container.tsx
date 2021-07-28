@@ -1,6 +1,8 @@
-import { Container, Grid } from "@material-ui/core";
+import { Button, Container, Grid } from "@material-ui/core";
 import React from "react";
 import { useMemo } from "react";
+import { StockQuota } from "../stock/Stock-service";
+import StockViewContainer from "../stock/StockViewContainer";
 import {
   useStockCompare,
   withStockCompareContext,
@@ -9,17 +11,24 @@ import StockCompareBarItem from "../stockCompareBarItem/StockCompareBarItem";
 import StockSearchView from "../stockSerach/StockSearchView-container";
 
 function StockCompareBarView() {
-  const { data, addTip, removeTip, addBase, base } = useStockCompare();
-  const result = useMemo(() => {
+  const { data, addTip, removeTip, addBase, base, getCompare, result } =
+    useStockCompare();
+
+  const tips = useMemo(() => {
     if (base && base != "") {
       return [base, ...data];
     }
     return data;
-  }, [base, data.length]);
+  }, [base, data]);
+
+  const baseItem = useMemo(
+    () => result.filter((item) => item.name === base),
+    [result, base]
+  );
   return (
     <>
       <Grid>
-        {result.map((item) => (
+        {tips.map((item) => (
           <StockCompareBarItem
             label={item ?? ""}
             key={item}
@@ -27,6 +36,13 @@ function StockCompareBarView() {
             isDefault={base === item}
           />
         ))}
+        <Button
+          disabled={!base || base === "" || data?.length === 0}
+          onClick={() => getCompare()}
+          variant="contained"
+        >
+          Compare
+        </Button>
       </Grid>
       <Grid container direction="row" style={{ width: 600 }}>
         <Grid item>
@@ -42,6 +58,17 @@ function StockCompareBarView() {
           />
         </Grid>
       </Grid>
+      <Container>
+        {result.map((item: StockQuota) => (
+          <StockViewContainer
+            key={item.name}
+            dateRegister={new Date(item.priceAt)}
+            name={item.name}
+            reference={item.name}
+            quota={item.lastPrice}
+          />
+        ))}
+      </Container>
     </>
   );
 }
