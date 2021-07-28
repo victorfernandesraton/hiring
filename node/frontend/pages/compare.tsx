@@ -12,9 +12,7 @@ function Compare() {
         <title>{`Compare`}</title>
       </Head>
 
-      <Container maxWidth="sm" style={{ marginTop: 26 }}>
-        <StockCompareBarViewContainer />
-      </Container>
+      <StockCompareBarViewContainer />
     </>
   );
 }

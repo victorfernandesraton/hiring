@@ -1,4 +1,4 @@
-import { Box, Container, Link, Typography } from "@material-ui/core";
+import { Box, Container, Grid, Link, Typography } from "@material-ui/core";
 import Head from "next/head";
 import Image from "next/image";
 import StockSearchView from "../src/components/stockSerach/StockSearchView-container";
@@ -11,7 +11,7 @@ function Home() {
         <title>{`Home`}</title>
       </Head>
 
-      <Container maxWidth="sm" style={{ marginTop: 26 }}>
+      <Container>
         <StockSearchView />
       </Container>
     </>

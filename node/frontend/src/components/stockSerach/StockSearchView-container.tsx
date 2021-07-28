@@ -8,6 +8,7 @@ import {
   Paper,
   InputBase,
   IconButton,
+  Popover,
 } from "@material-ui/core";
 
 import SearchIcon from "@material-ui/icons/Search";
@@ -21,6 +22,7 @@ import Reducer, {
 } from "./StockSearch-reducer";
 import { serachStocks, updateTextSearch } from "./StockSearch-actions";
 import StockSearchService, { StockSearchItem } from "./StockSerach-service";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -78,6 +80,8 @@ export default function StockSearchView({
     initialState
   );
 
+  const [openList, setOpenList] = useState(false);
+
   const updateText = useCallback(
     (value: string) => updateTextSearch(dispatch, value),
     []
@@ -111,7 +115,7 @@ export default function StockSearchView({
       <Container>
         {loading && <CircularProgress />}
 
-        {data.length > 0 && isOpenList ? (
+        {data.length > 0 ? (
           <SearchListView data={data} onClickResult={onClickResult} />
         ) : (
           <>

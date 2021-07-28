@@ -22,11 +22,11 @@ function StockCompareBarView() {
   }, [base, data]);
 
   const baseItem = useMemo(
-    () => result.filter((item) => item.name === base),
+    () => result.find((item) => item.name === base),
     [result, base]
   );
   return (
-    <>
+    <Container>
       <Grid>
         {tips.map((item) => (
           <StockCompareBarItem
@@ -36,40 +36,37 @@ function StockCompareBarView() {
             isDefault={base === item}
           />
         ))}
-        <Button
-          disabled={!base || base === "" || data?.length === 0}
-          onClick={() => getCompare()}
-          variant="contained"
-        >
-          Compare
-        </Button>
       </Grid>
-      <Grid container direction="row" style={{ width: 600 }}>
-        <Grid item>
-          <StockSearchView
-            onClickResult={(item) => addBase(item.symbol)}
-            width={220}
-          />
+      <Button
+        disabled={!base || base === "" || data?.length === 0}
+        onClick={() => getCompare()}
+        variant="contained"
+      >
+        Compare
+      </Button>
+      <Grid container spacing={1}>
+        <Grid item xs={6}>
+          <StockSearchView onClickResult={(item) => addBase(item.symbol)} />
+        </Grid>
+        <Grid item xs={6}>
+          <StockSearchView onClickResult={(item) => addTip(item.symbol)} />
         </Grid>
         <Grid item>
-          <StockSearchView
-            onClickResult={(item) => addTip(item.symbol)}
-            width={220}
-          />
+          {result
+            .filter((item) => item.name !== baseItem?.name)
+            .map((item: StockQuota) => (
+              <StockViewContainer
+                key={item.name}
+                dateRegister={new Date(item.priceAt)}
+                name={item.name}
+                reference={item.name}
+                quota={item.lastPrice}
+                compareAt={baseItem?.lastPrice}
+              />
+            ))}
         </Grid>
       </Grid>
-      <Container>
-        {result.map((item: StockQuota) => (
-          <StockViewContainer
-            key={item.name}
-            dateRegister={new Date(item.priceAt)}
-            name={item.name}
-            reference={item.name}
-            quota={item.lastPrice}
-          />
-        ))}
-      </Container>
-    </>
+    </Container>
   );
 }
 

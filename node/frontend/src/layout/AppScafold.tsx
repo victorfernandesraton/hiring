@@ -11,7 +11,7 @@ export const withAppScafold =
     (
       <AppBarProvider>
         <AppBar />
-        <Container>
+        <Container style={{ width: "90%", marginTop: 36 }}>
           <Component {...props} />
         </Container>
       </AppBarProvider>

@@ -2,13 +2,18 @@ import React from "react";
 import { format } from "date-fns";
 
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import { Container, Grid } from "@material-ui/core";
 
+import { ArrowDropDown, ArrowDropUp } from "@material-ui/icons";
+import {
+  Grid,
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  Typography,
+} from "@material-ui/core";
+
+import { red, green } from "@material-ui/core/colors";
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -31,12 +36,14 @@ export interface StockViewContainerProps {
   reference: string;
   quota: number;
   dateRegister: Date;
+  compareAt?: number;
 }
 function StockViewContainer({
   name,
   reference,
   quota,
   dateRegister,
+  compareAt,
 }: StockViewContainerProps) {
   const classes = useStyles();
 
@@ -53,9 +60,22 @@ function StockViewContainer({
         <Typography variant="h5" component="h2">
           {reference}
         </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {quota}
-        </Typography>
+        <Grid container direction="row">
+          <Grid item xs={compareAt ? 2 : 8}>
+            <Typography className={classes.pos} color="textSecondary">
+              {quota}
+            </Typography>
+          </Grid>
+          {compareAt && compareAt != quota && (
+            <Grid item xs={10}>
+              {compareAt > quota ? (
+                <ArrowDropDown style={{ color: red[500] }} fontSize="large" />
+              ) : (
+                <ArrowDropUp style={{ color: green[500] }} fontSize="large" />
+              )}
+            </Grid>
+          )}
+        </Grid>
         <Typography variant="body2" component="p">
           {format(dateRegister, "eeee")}
         </Typography>
