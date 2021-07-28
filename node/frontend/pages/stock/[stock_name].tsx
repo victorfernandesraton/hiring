@@ -12,6 +12,7 @@ import StockService, {
 } from "../../src/components/stock/Stock-service";
 import StockRequests from "../../src/components/stock/Stock-requests";
 import StockHistoryView from "../../src/components/stockHistorical/StockHistoricalView-container";
+import StockProjectionViewContainer from "../../src/components/stockProjection/StockProjectionView-container";
 
 interface StockPageProps {
   stock: StockQuota;
@@ -47,6 +48,9 @@ function StockPage({ stock }: StockPageProps) {
           </Grid>
           <Grid item>
             <StockHistoryView stockName={name} />
+            <Grid item>
+              <StockProjectionViewContainer />
+            </Grid>
           </Grid>
         </Grid>
       </Container>

@@ -1,0 +1,10 @@
+{
+  "sucess": {
+    "purchasedAt": "2021-07-02",
+    "priceAtDate": 140.02,
+    "name": "IBM",
+    "purchasedAmount": "10",
+    "lastPrice": 141.3,
+    "capitalGains": -12.800000000000011
+  }
+}
