@@ -20,7 +20,7 @@ import Reducer, {
   StockSearchReducerTypes,
 } from "./StockSearch-reducer";
 import { serachStocks, updateTextSearch } from "./StockSearch-actions";
-import StockSearchService from "./StockSerach-service";
+import StockSearchService, { StockSearchItem } from "./StockSerach-service";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: "2px 4px",
       display: "flex",
       alignItems: "center",
-      width: 400,
     },
     input: {
       marginLeft: theme.spacing(1),
@@ -44,7 +43,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function StockSearchView() {
+export interface StockSearchViewProps {
+  onClickResult?: (item: StockSearchItem) => void;
+  width?: number;
+}
+export default function StockSearchView({
+  onClickResult,
+  width = 400,
+}: StockSearchViewProps) {
   const classes = useStyles();
 
   const stockServiceInstance = useMemo(
@@ -77,7 +83,7 @@ export default function StockSearchView() {
   return (
     <>
       <Container>
-        <Paper component="form" className={classes.root}>
+        <Paper component="form" className={classes.root} style={{ width }}>
           <InputBase
             value={query}
             onChange={(e) => updateText(e.target.value.toString())}
@@ -104,7 +110,7 @@ export default function StockSearchView() {
         {loading && <CircularProgress />}
 
         {data.length > 0 ? (
-          <SearchListView data={data} />
+          <SearchListView data={data} onClickResult={onClickResult} />
         ) : (
           <>
             {called && !loading && (

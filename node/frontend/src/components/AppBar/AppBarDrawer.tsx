@@ -48,6 +48,7 @@ function AppBarDrawer() {
         {[
           { path: "/", name: "Inicio" },
           { path: "/me", name: "Minhas acões" },
+          { path: "/compare", name: "Comparar  acões" },
         ].map(({ name, path }) => (
           <Link href={path} key={path}>
             <ListItem button>
