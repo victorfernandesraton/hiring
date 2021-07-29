@@ -60,6 +60,10 @@ Create a file `.env-cmdrc` in backend root directory like this
 ## Frontend app
 
 ```bash
-cd frontend && npm install
-npm run dev
+cd frontend && npm run dev
+```
+## Backend app
+
+```bash
+cd backend && npm run dev
 ```
